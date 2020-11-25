@@ -8,14 +8,33 @@ section {
 }
 
 .wall {
-    background-color: grey;
+    background-color: black;
     border: 1px solid orange;
     display: flex;
     justify-content: space-around;
 }
 
+.path_rainbow::before{
+    content: "";
+    position: absolute;
+    width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  background-image: url(./img/rainbow.gif);
+    background-size:contain;
+    transform: rotate(90deg);
+}
+.path_rainbow{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid orange;
+    display: flex;
+    justify-content: space-around;
+}
 .path {
-    background-color: green;
+   background-color: #003466;
     border: 1px solid orange;
     display: flex;
     justify-content: space-around;
@@ -29,16 +48,22 @@ section {
 }
 
 .end {
-    background-color: turquoise;
+    background-color: greenyellow;
     border: 1px solid orange;
     display: flex;
     justify-content: space-around;
 }
 
 .player {
-    background-color: tomato;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    background-image: url(./img/nyanCat.gif);
+    background-size:contain;
+    background-repeat: no-repeat;
+    /* background-color: tomato; */
+    /* border-radius: 50%; */
+    width: 100%;
+    height: 70%;
     align-self: center;
+}
+.stopwatch{
+    background-color: red;
 }
