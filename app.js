@@ -297,10 +297,10 @@ audio.volume = 0.02;
 audio.style = 'width:240px';
 document.querySelector('body').appendChild(audio)
 let source = document.createElement('source');
-source.src = '/music/nyan.mp3'
+source.src = './music/nyan.mp3'
 audio.appendChild(source)
 let source2 = document.createElement('source');
-source2.src = '/music/nyan.ogg'
+source2.src = './music/nyan.ogg'
 audio.appendChild(source2);
 
 
