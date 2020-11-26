@@ -12,7 +12,7 @@ background-size:contain;
 background-image:url('https://media.giphy.com/media/Rm9RzjSAfXm4o/giphy.gif');
 `)
 
-
+//first level
 const multiline = `***********.* 
  *S.....**.*.T
  *****.....*.*
@@ -25,7 +25,7 @@ const multiline = `***********.*
  *.******...**
  *....********`
 
-
+//min max random number
 function randomNbr(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -37,6 +37,7 @@ let player_current_pos_x
 let player_current_pos_y
 let player
 
+//generates a random level based on text caracters, start and end position will never be equal, and level always solvable
 function generate_level() {
     startposx = randomNbr(1, 12)
     startposy = randomNbr(1, 11)
@@ -45,6 +46,7 @@ function generate_level() {
     let posX_table = [startposx, endposx]
     let posY_table = [startposy, endposy]
 
+    //save new position for x,y
     function incrementposX(x, y) {
         if (x < endposx) {
             x++;
@@ -58,7 +60,8 @@ function generate_level() {
             // console.log('decremented x', x);
         }
     }
-
+ 
+    //save new position for y,x
     function incrementposY(x, y) {
         if (y < endposy) {
             y++;
@@ -73,9 +76,11 @@ function generate_level() {
         }
     }
 
+    //bit of math to calculate maximum amount of moves possible, so that random path generator won't be stuck by wall
     let dist = (endposx - startposx) + (Math.abs((endposy - startposy))) + Math.abs((endposx + endposy) - (startposx + startposy))
     console.log('this is dist', dist);
 
+    //generates solution path based on distances using both posX and posY tables, and will randomly increment x or y 
     for (i = 0; i <= (dist); i++) {
         if (posX_table[0] != endposx && posY_table[0] != endposy) {
             let rand = Math.floor(Math.random() * 2)
@@ -94,10 +99,11 @@ function generate_level() {
         //console.log('i =', i)
     }
 
+    //generates random walls or paths for reste of map (excluding solution)
     let arr = [];
     for (i = 0; i < 143; i++) {
         // console.log('path Normal at ' + i);
-        let random = Math.floor(Math.random() * 3)
+        let random = randomNbr(1,3);
         random < 2 ? arr.push('*') : arr.push('.');
     }
     for (y = 0; y < posX_table.length; y++) {
@@ -113,6 +119,8 @@ function generate_level() {
             arr.splice(res - 1, 1, '.')
         }
     }
+    
+    //converts array to proper string with spaces so load_level() can interpret it
     let arr_splitter_counter = 0
     const multi_arr = [];
     for (elem of arr) {
@@ -124,7 +132,7 @@ function generate_level() {
 
 
 let current_level = 1;
-
+//Checks for start level, if not generates new random level using generate_level function, then converts level into DOM and instantiate player
 function load_level() {
     if (current_level < 2) {
         startposx = 2;
@@ -146,7 +154,7 @@ function load_level() {
     let current_section = 1;
     let nbr_of_tiles_per_section = 0;
 
-
+//Generates level using text provided by random generator && Makes sure to removes blank spaces && adds 13 per section
     for (i = 0; i < use_level.length; i++) {
         let a = use_level[i].split('');
         if (a == " ") {
@@ -184,7 +192,7 @@ function load_level() {
     player_current_pos_y = startposy;
     create_rainbow();
 }
-
+//Removes all sections so new ones can be generated
 function reset_map() {
     console.log('i entered reset');
 
@@ -221,7 +229,7 @@ function create_player() {
 }
 create_rainbow();
 
-
+// Takes in keyboard Arrow input and checks next location for walls before moving player
 document.addEventListener('keydown', function (event) {
     let target = event.code;
     if (target == 'ArrowUp') {
@@ -248,7 +256,7 @@ document.addEventListener('keydown', function (event) {
         }
     } else if (target == 'ArrowDown') {
         //SHOULD create a variable for section.length ||||| 12 == last section
-        if (player_current_pos_y == 12) {
+        if (player_current_pos_y == 11) {
             console.log('hit a wall');
         } else if (player_pos(player_current_pos_x, (player_current_pos_y + 1)).classList.contains('wall')) {
             console.log('hit a wall');
@@ -270,6 +278,7 @@ document.addEventListener('keydown', function (event) {
         }
 
     }
+    //if player is strong enough he'll get here
     if (player_pos(player_current_pos_x, player_current_pos_y).classList.contains('end')) {
         alert('winner winner chicken dinner');
         completed_level_count++;
@@ -280,7 +289,7 @@ document.addEventListener('keydown', function (event) {
 })
 
 
-
+// Create Title and level counter
 let h1 = document.createElement('h1');
 h1.innerHTML = "Amazing"
 document.body.appendChild(h1);
@@ -289,6 +298,7 @@ h2.innerHTML = "Current level : " + completed_level_count;
 h2.id = 'current_level'
 document.body.appendChild(h2);
 
+// create Audio
 let audio = document.createElement('audio');
 audio.controls = true;
 audio.autoplay = true;
@@ -304,12 +314,12 @@ source2.src = './music/nyan.ogg'
 audio.appendChild(source2);
 
 
-// var startTime = new Date;
-// var currentTime = new Date;
-// var seconds;
+// let startTime = new Date;
+// let currentTime = new Date;
+// let seconds;
 // function timer() {
 //     currentTime = new Date;
-//     seconds = parseFloat((currentTime - startTime) / 1000).toFixed(1);
+//     seconds = Number((currentTime - startTime) / 1000).toFixed(1);
 //     console.log(document.querySelector("body > div").innerText);
 //     console.log(seconds);
 // }
