@@ -2,6 +2,7 @@
 
 
 This is a maze game made from scratch, with a built in random level generator and music!
+It generates levels based on a text chain.
 
 ## Table of contents
   - [Technologies](#technologies)
