@@ -1,5 +1,5 @@
 # Amazeing
-### (only time I will write this pun)
+
 
 This is a maze made from scratch, with a built in generator and music!
 
