@@ -1,7 +1,7 @@
 # Amazeing
 
 
-This is a maze made from scratch, with a built in generator and music!
+This is a maze game made from scratch, with a built in random level generator and music!
 
 ## Table of contents
   - [Technologies](#technologies)
